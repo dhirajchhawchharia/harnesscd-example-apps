@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_dhirajchhawchharia_harnesscd_example_apps_1733666956174-push-trigger-input-set
+  identifier: Build_dhirajchhawchharia_harnesscd_example_apps_1733666956174pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_dhirajchhawchharia_harnesscd_example_apps_1733666956174
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
