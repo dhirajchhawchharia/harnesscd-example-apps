@@ -12,10 +12,11 @@ pipeline:
   stages:
     - stage:
         identifier: build
-        name: build
+        name: build test and push
         spec:
           caching:
             enabled: true
+            paths: []
           cloneCodebase: true
           execution:
             steps:
@@ -23,13 +24,63 @@ pipeline:
                   identifier: echo
                   name: echo
                   spec:
-                    command: echo hello world
+                    shell: Sh
+                    command: echo Runnning CI in local
                   timeout: ""
                   type: Run
+              - step:
+                  type: Test
+                  name: run tests with Intelligence
+                  identifier: run_tests_with_Intelligence
+                  spec:
+                    shell: Sh
+                    command: echo running test intelligence
+                    intelligenceMode: true
           platform:
-            arch: Arm64
             os: MacOS
+            arch: Arm64
           runtime:
-            spec: {}
             type: Docker
+            spec: {}
+          buildIntelligence:
+            enabled: false
         type: CI
+        description: ""
+        delegateSelectors:
+          - macos-arm64
+    - stage:
+        name: Run Integration tests
+        identifier: Run_tests
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: MacOS
+            arch: Arm64
+          runtime:
+            type: Docker
+            spec: {}
+          caching:
+            enabled: true
+            paths: []
+          buildIntelligence:
+            enabled: false
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: echo running integration tests stage
+              - step:
+                  type: Run
+                  name: Run_2
+                  identifier: Run_2
+                  spec:
+                    shell: Sh
+                    command: echo running the tests stage is complete
+        delegateSelectors:
+          - macos-arm64
